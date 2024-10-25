@@ -1,15 +1,12 @@
 package backend.academy.controller;
 
+import backend.academy.model.CreatorModel;
 import backend.academy.view.AppView;
+import backend.academy.view.CreatorView;
 import lombok.experimental.UtilityClass;
 import lombok.extern.log4j.Log4j2;
-import java.io.IOException;
 import java.nio.charset.StandardCharsets;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.security.SecureRandom;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Scanner;
 
 /// Основной класс для работы с меню приложения.
@@ -64,7 +61,8 @@ public class AppController {
                 return defaultWidth;
             } else {
                 try {
-                    return Integer.parseInt(choice);
+                    int width = Integer.parseInt(choice);
+                    return width > 0 ? width : defaultWidth;
                 } catch (NumberFormatException e) {
                     AppView.printInvalidValue();
                 }
@@ -83,7 +81,8 @@ public class AppController {
                 return defaultHeight;
             } else {
                 try {
-                    return Integer.parseInt(choice);
+                    int height = Integer.parseInt(choice);
+                    return height > 0 ? height : defaultHeight;
                 } catch (NumberFormatException e) {
                     AppView.printInvalidValue();
                 }
@@ -96,6 +95,10 @@ public class AppController {
         int width = getWidth();
         int height = getHeight();
         AppView.clear();
+        CreatorModel creatorModel = new CreatorModel(height, width);
+        CreatorView creatorView = new CreatorView();
+        CreatorController creatorController = new CreatorController(creatorModel, creatorView);
+        creatorController.start();
     }
 
     /// Метод для завершения работы программы.

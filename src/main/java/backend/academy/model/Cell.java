@@ -4,7 +4,7 @@ import lombok.Getter;
 
 /// Класс-запись для хранения полной информации о блоке лабиринта для его построения.
 public record Cell(int row, int col, Type type) {
-    @Getter  public enum Type {
+    @Getter public enum Type {
         WALL('#'),
         PASSAGE(' ');
 

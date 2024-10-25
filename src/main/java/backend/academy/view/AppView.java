@@ -1,7 +1,6 @@
 package backend.academy.view;
 
 import lombok.experimental.UtilityClass;
-import java.util.Map;
 import java.util.Scanner;
 
 /// Вспомогательный класс для выделения методов вывода в консоль, необходимых для использования в нескольких классах.
@@ -45,14 +44,6 @@ public class AppView {
         System.out.println("Exiting...");
     }
 
-    /// Метод для вывода сообщения обо всех значениях в мапе с их ключами.
-    @SuppressWarnings("RegexpSinglelineJava")
-    public static <T extends Enum<T>> void printMap(Map<String, T> enumMap) {
-        for (Map.Entry<String, T> entry : enumMap.entrySet()) {
-            System.out.println(entry.getKey() + " - " + entry.getValue().name());
-        }
-    }
-
     /// Метод для вывода главного меню и получения выбора опции от пользователя.
     @SuppressWarnings("RegexpSinglelineJava")
     public static String getOptionFromUser(Scanner scanner) {
@@ -68,7 +59,7 @@ public class AppView {
     /// Метод для вывода сообщения об ожидании ввода пользователем ширины лабиринта.
     @SuppressWarnings("RegexpSinglelineJava")
     public static String getWidthFromUser(Scanner scanner) {
-        System.out.println("Enter maze width (default - 10):");
+        System.out.println("Enter maze width (> 0, default - 10):");
         AppView.printInput();
         String choice = scanner.nextLine();
         System.out.println();
@@ -78,7 +69,7 @@ public class AppView {
     /// Метод для вывода сообщения об ожидании ввода пользователем высоты (длины) лабиринта.
     @SuppressWarnings("RegexpSinglelineJava")
     public static String getHeightFromUser(Scanner scanner) {
-        System.out.println("Enter maze height (default - 10):");
+        System.out.println("Enter maze height (> 0, default - 10):");
         AppView.printInput();
         String choice = scanner.nextLine();
         System.out.println();
