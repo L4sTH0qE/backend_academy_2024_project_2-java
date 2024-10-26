@@ -10,9 +10,9 @@ import backend.academy.model.solver.DFSSolver;
 import backend.academy.model.solver.Solver;
 import backend.academy.view.AppView;
 import backend.academy.view.CreatorView;
-import lombok.extern.log4j.Log4j2;
 import java.util.HashMap;
 import java.util.Map;
+import lombok.extern.log4j.Log4j2;
 
 /// Класс CreatorController для взаимодействия между CreatorModel и CreatorView
 /// (логикой создания лабиринтов и их отображением в консоли).
@@ -30,31 +30,25 @@ public record CreatorController(CreatorModel creatorModel, CreatorView creatorVi
 
     /// Основной метод по созданию лабиринта.
     public void start() {
-        try {
-            initialiseData();
-            getGenerator();
-            AppView.clear();
-            creatorModel.generate();
-            creatorView.printMaze(creatorModel.maze()); // Выводим сгенерированный лабиринт.
+        initialiseData();
+        getGenerator();
+        AppView.clear();
+        creatorModel.generate();
+        creatorView.printMaze(creatorModel.maze()); // Выводим сгенерированный лабиринт.
 
-            // Выводим опции и ждем выбора пользователя.
-            while (true) {
-                String choice = creatorView.getOptionFromUser(AppController.SCANNER);
-                switch (choice) {
-                    case "1":
-                        solveMaze();
-                        break;
-                    case "q", "Q":
-                        return;
-                    default:
-                        AppView.printInvalidCommand();
-                }
+        // Выводим опции и ждем выбора пользователя.
+        while (true) {
+            String choice = creatorView.getOptionFromUser(AppController.SCANNER);
+            switch (choice) {
+                case "1":
+                    solveMaze();
+                    break;
+                case "q", "Q":
+                    clearData();
+                    return;
+                default:
+                    AppView.printInvalidCommand();
             }
-            // Если возникла ошибка во время работы программы.
-        } catch (Exception ex) {
-            log.error("An unexpected error occurred while the program was running!");
-            log.error("Details: {}", ex.getMessage());
-            AppController.exit();
         }
     }
 
@@ -63,7 +57,7 @@ public record CreatorController(CreatorModel creatorModel, CreatorView creatorVi
     private void getGenerator() {
         AppView.clear();
         while (true) {
-            String choice = creatorView.getGeneratorFromUser(GENERATOR_MAP);
+            String choice = creatorView.getGeneratorFromUser(GENERATOR_MAP, AppController.SCANNER);
             Generator generator = GENERATOR_MAP.getOrDefault(choice, null);
             if (generator == null) {
                 AppView.printInvalidCommand();
@@ -79,7 +73,7 @@ public record CreatorController(CreatorModel creatorModel, CreatorView creatorVi
     private void getSolver() {
         AppView.clear();
         while (true) {
-            String choice = creatorView.getSolverFromUser(SOLVER_MAP);
+            String choice = creatorView.getSolverFromUser(SOLVER_MAP, AppController.SCANNER);
             Solver solver = SOLVER_MAP.getOrDefault(choice, null);
             if (solver == null) {
                 AppView.printInvalidCommand();
@@ -97,6 +91,13 @@ public record CreatorController(CreatorModel creatorModel, CreatorView creatorVi
         GENERATOR_MAP.put("2", new KruskalGenerator());
         SOLVER_MAP.put("1", new BFSSolver());
         SOLVER_MAP.put("2", new DFSSolver());
+    }
+
+    /// Метод для очистки мап для выбора алгоритмов для создания лабиринтов.
+    public void clearData() {
+        // Чистим мапы.
+        GENERATOR_MAP.clear();
+        SOLVER_MAP.clear();
     }
 
     /// Метод для получения координаты клетки по вертикали.
@@ -133,8 +134,8 @@ public record CreatorController(CreatorModel creatorModel, CreatorView creatorVi
         }
     }
 
-    /// Метод для инициализации координат стартовой и конечной клеток пути в лабиринте.
-    private Coordinate[] initialiseCoords() {
+    /// Метод для нахождения пути в лабиринте.
+    private void solveMaze() {
         // Получаем координаты стартовой и конечной клеток пути.
         creatorView.getStartCoordsFromUser();
         int startX = getXCoord() - 1;
@@ -144,16 +145,9 @@ public record CreatorController(CreatorModel creatorModel, CreatorView creatorVi
         int endX = getXCoord() - 1;
         int endY = getYCoord() - 1;
         Coordinate end = new Coordinate(endY * 2, endX * 2);
-
-        return new Coordinate[] {start, end};
-    }
-
-    /// Метод для нахождения пути в лабиринте.
-    private void solveMaze() {
-        Coordinate[] coords = initialiseCoords();
         getSolver();
         AppView.clear();
-        creatorModel.solve(coords[0], coords[1]);
+        creatorModel.solve(start, end);
         creatorView.printMaze(creatorModel.maze(), creatorModel.path()); // Выводим лабиринт с получившимся путем.
     }
 }

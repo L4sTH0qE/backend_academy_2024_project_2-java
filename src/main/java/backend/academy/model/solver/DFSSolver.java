@@ -53,9 +53,16 @@ public class DFSSolver implements Solver {
 
         // Собираем путь по предкам.
         path.add(new Coordinate(endId / maze.width(), endId % maze.width()));
-        while (endId != prev[endId]) {
+        int coordsCounter = maze.height() * maze.width() - 1;
+        while (endId != prev[endId] && coordsCounter > 0) {
             path.add(new Coordinate(prev[endId] / maze.width(), prev[endId] % maze.width()));
             endId = prev[endId];
+            --coordsCounter;
+        }
+
+        // Попали в какой-то цикл (невозможно, но пусть проверка будет).
+        if (endId != prev[endId]) {
+            return null;
         }
 
         // Переворачиваем список.
@@ -65,23 +72,24 @@ public class DFSSolver implements Solver {
 
     // Основной метод для реализации рекурсивной версии алгоритма поиска в глубину.
     private void dfs(Coordinate cur, int endId) {
+        int xCoordId = 0;
+        int yCoordId = 1;
         visited[cur.row()][cur.col()] = true;
         // Выполняем проверку, что текущая вершина является конечной для поиска.
         if (cur.row() * maze.width() + cur.col() == endId) {
             isEndVisited = true;
-            return;
         }
         // Берем соседние клетки для текущей и обновляем их предков, если они еще не посещены.
         for (int[] direction : directions) {
-            int nextX = cur.col() + direction[0];
-            int nextY = cur.row() + direction[1];
-            if (isInBounds(nextX, nextY, maze.height(), maze.width()) && !visited[nextY][nextX] &&
-                maze.grid()[nextY][nextX].type().equals(Cell.Type.PASSAGE)) {
+            if (isEndVisited) {
+                break;
+            }
+            int nextX = cur.col() + direction[xCoordId];
+            int nextY = cur.row() + direction[yCoordId];
+            if (isInBounds(nextX, nextY, maze.height(), maze.width()) && !visited[nextY][nextX]
+                && maze.grid()[nextY][nextX].type() == Cell.Type.PASSAGE) {
                 prev[nextY * maze.width() + nextX] = cur.row() * maze.width() + cur.col();
                 dfs(new Coordinate(nextY, nextX), endId);
-            }
-            if (isEndVisited) {
-                return;
             }
         }
     }

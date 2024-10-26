@@ -1,7 +1,7 @@
 package backend.academy.view;
 
-import lombok.experimental.UtilityClass;
 import java.util.Scanner;
+import lombok.experimental.UtilityClass;
 
 /// Вспомогательный класс для выделения методов вывода в консоль, необходимых для использования в нескольких классах.
 @UtilityClass

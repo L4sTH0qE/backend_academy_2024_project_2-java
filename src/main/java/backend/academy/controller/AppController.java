@@ -3,11 +3,10 @@ package backend.academy.controller;
 import backend.academy.model.CreatorModel;
 import backend.academy.view.AppView;
 import backend.academy.view.CreatorView;
+import java.nio.charset.StandardCharsets;
+import java.util.Scanner;
 import lombok.experimental.UtilityClass;
 import lombok.extern.log4j.Log4j2;
-import java.nio.charset.StandardCharsets;
-import java.security.SecureRandom;
-import java.util.Scanner;
 
 /// Основной класс для работы с меню приложения.
 @Log4j2
@@ -17,9 +16,6 @@ public class AppController {
     // Для получения ввода пользователя используется объект типа Scanner из состава JDK(JRE) API
     // Для инициализации SCANNER'а используется объект стандартного потока ввода - System.in
     public static final Scanner SCANNER = new Scanner(System.in, StandardCharsets.UTF_8);
-
-    // Экземпляр для генерации хорошего случайного числа.
-    public static final SecureRandom SECURE_RANDOM = new SecureRandom();
 
     /// Метод для отображения окна входа в программу.
     @SuppressWarnings("RegexpSinglelineJava")

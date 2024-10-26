@@ -1,14 +1,16 @@
 package backend.academy.model.generator;
 
-import backend.academy.controller.AppController;
 import backend.academy.model.Cell;
 import backend.academy.model.Maze;
+import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.List;
 
 /// Класс для генерации лабиринта с помощью алгоритма Краскала.
 public class KruskalGenerator implements Generator {
 
+    // Генератор хорошего случайного числа.
+    private final SecureRandom secureRandom = new SecureRandom();
 
     public Maze generate(int height, int width) {
 
@@ -31,9 +33,9 @@ public class KruskalGenerator implements Generator {
                     grid[i][j] = new Cell(i, j, Cell.Type.WALL);
                 }
                 // Обновляем список стен-ребер, проверяя направление стены.
-                if (i % 2 == 1 && j % 2 == 0) {
+                if (i % 2 != 0 && j % 2 == 0) {
                     walls.add(new Wall(j, i, j, i - 1, j, i + 1));
-                } else if (i % 2 == 0 && j % 2 == 1) {
+                } else if (i % 2 == 0 && j % 2 != 0) {
                     walls.add(new Wall(j, i, j - 1, i, j + 1, i));
                 }
             }
@@ -45,7 +47,7 @@ public class KruskalGenerator implements Generator {
         // Цикл алгоритма (проходимся по списку стен-ребер и пытаемся объединять множества клеток).
         while (!walls.isEmpty()) {
             // Выбираем случайную стену
-            int wallId = AppController.SECURE_RANDOM.nextInt(walls.size());
+            int wallId = secureRandom.nextInt(walls.size());
             Wall wall = walls.get(wallId);
             walls.remove(wallId);
 
@@ -101,13 +103,16 @@ public class KruskalGenerator implements Generator {
     /// Вспомогательный класс для описания соседних стен (ребер) вместе с достижимыми из них клетками.
     private static class Wall {
         // Координаты стены.
-        int wallX, wallY;
+        int wallX;
+        int wallY;
 
         // Координаты исходной клетки.
-        int fromX, fromY;
+        int fromX;
+        int fromY;
 
         // Координаты достижимой клетки.
-        int toX, toY;
+        int toX;
+        int toY;
 
         Wall(int wallX, int wallY, int fromX, int fromY, int toX, int toY) {
             this.wallX = wallX;

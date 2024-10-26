@@ -11,9 +11,6 @@ import java.util.List;
 /// Класс для нахождения пути в заданном лабиринте с помощью алгоритма поиска в ширину.
 public class BFSSolver implements Solver {
 
-    // Массив для хранения уже посещенных клеток.
-    private boolean[][] visited;
-
     public List<Coordinate> solve(Maze maze, Coordinate start, Coordinate end) {
 
         // Для каждой координаты храним предка для восстановления пути.
@@ -25,11 +22,14 @@ public class BFSSolver implements Solver {
         prev[startId] = startId;
 
         // Массив посещенных клеток.
-        visited = new boolean[maze.height()][maze.width()];
+        // Массив для хранения уже посещенных клеток.
+        boolean[][] visited = new boolean[maze.height()][maze.width()];
         visited[start.row()][start.col()] = true;
 
         // Список направлений для проверки достижимых полей.
         int[][] directions = {{0, -1}, {1, 0}, {0, 1}, {-1, 0}};
+        int xCoordId = 0;
+        int yCoordId = 1;
 
         List<Coordinate> cells = new ArrayList<>();
         cells.add(start);
@@ -40,10 +40,10 @@ public class BFSSolver implements Solver {
 
             // Берем соседние клетки для текущей и обновляем их предков, если они еще не посещены.
             for (int[] direction : directions) {
-                int nextX = cell.col() + direction[0];
-                int nextY = cell.row() + direction[1];
-                if (isInBounds(nextX, nextY, maze.height(), maze.width()) && !visited[nextY][nextX] &&
-                    maze.grid()[nextY][nextX].type().equals(Cell.Type.PASSAGE)) {
+                int nextX = cell.col() + direction[xCoordId];
+                int nextY = cell.row() + direction[yCoordId];
+                if (isInBounds(nextX, nextY, maze.height(), maze.width()) && !visited[nextY][nextX]
+                    && maze.grid()[nextY][nextX].type() == Cell.Type.PASSAGE) {
                     prev[nextY * maze.width() + nextX] = cell.row() * maze.width() + cell.col();
                     cells.add(new Coordinate(nextY, nextX));
                     visited[nextY][nextX] = true;
@@ -64,9 +64,16 @@ public class BFSSolver implements Solver {
 
         // Собираем путь по предкам.
         path.add(new Coordinate(endId / maze.width(), endId % maze.width()));
-        while (endId != prev[endId]) {
+        int coordsCounter = maze.height() * maze.width() - 1;
+        while (endId != prev[endId] && coordsCounter > 0) {
             path.add(new Coordinate(prev[endId] / maze.width(), prev[endId] % maze.width()));
             endId = prev[endId];
+            --coordsCounter;
+        }
+
+        // Попали в какой-то цикл (невозможно, но пусть проверка будет).
+        if (endId != prev[endId]) {
+            return null;
         }
 
         // Переворачиваем список.

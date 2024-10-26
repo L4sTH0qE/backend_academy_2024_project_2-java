@@ -2,9 +2,9 @@ package backend.academy.model;
 
 import backend.academy.model.generator.Generator;
 import backend.academy.model.solver.Solver;
+import java.util.List;
 import lombok.Getter;
 import lombok.Setter;
-import java.util.List;
 
 /// Класс для описания логики создателя лабиринтов и текущего состояния лабиринта.
 public class CreatorModel {

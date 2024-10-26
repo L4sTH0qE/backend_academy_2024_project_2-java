@@ -8,11 +8,14 @@ import java.util.List;
 /// Класс для обычного отображения лабиринта в консоль
 public class DefaultRenderer implements Renderer {
 
+    private static final String FIRST_FORMATTER = "%4s";
+    private static final String SECOND_FORMATTER = "%5s";
+
     /// Метод для возвращения лабиринта без пути в строковом представлении.
     public String render(Maze maze) {
         char wallSymbol = '⬛';
         char endSymbol = '\n';
-        String vertSpaceSymbol = String.format("%4s", ' ');
+        String vertSpaceSymbol = String.format(FIRST_FORMATTER, ' ');
 
         StringBuilder mazeStr = new StringBuilder();
         char[] wallLine = new char[maze.width() + 2];
@@ -22,9 +25,9 @@ public class DefaultRenderer implements Renderer {
         // Добавляем горизонтальную шкалу для x-координаты.
         for (int i = 0; i < ((maze.width() + 1) / 2); ++i) {
             if (i % 2 == 0) {
-                mazeStr.append(String.format("%4s", i + 1));
+                mazeStr.append(String.format(FIRST_FORMATTER, i + 1));
             } else {
-                mazeStr.append(String.format("%5s", i + 1));
+                mazeStr.append(String.format(SECOND_FORMATTER, i + 1));
             }
         }
         mazeStr.append(endSymbol).append(vertSpaceSymbol).append(wallLine).append(endSymbol);
@@ -34,7 +37,7 @@ public class DefaultRenderer implements Renderer {
                 if (j == 0) {
                     // Добавляем вертикальную шкалу для y-координаты.
                     if (i % 2 == 0) {
-                        mazeStr.append(String.format("%4s", (i / 2) + 1));
+                        mazeStr.append(String.format(FIRST_FORMATTER, (i / 2) + 1));
                     } else {
                         mazeStr.append(vertSpaceSymbol);
                     }
@@ -58,7 +61,7 @@ public class DefaultRenderer implements Renderer {
         char wallSymbol = '⬛';
         char pathSymbol = '❌';
         char endSymbol = '\n';
-        String vertSpaceSymbol = String.format("%4s", ' ');
+        String vertSpaceSymbol = String.format(FIRST_FORMATTER, ' ');
 
         StringBuilder mazeStr = new StringBuilder();
         char[] wallLine = new char[maze.width() + 2];
@@ -68,9 +71,9 @@ public class DefaultRenderer implements Renderer {
         // Добавляем горизонтальную шкалу для x-координаты.
         for (int i = 0; i < ((maze.width() + 1) / 2); ++i) {
             if (i % 2 == 0) {
-                mazeStr.append(String.format("%4s", i + 1));
+                mazeStr.append(String.format(FIRST_FORMATTER, i + 1));
             } else {
-                mazeStr.append(String.format("%5s", i + 1));
+                mazeStr.append(String.format(SECOND_FORMATTER, i + 1));
             }
         }
         mazeStr.append(endSymbol).append(vertSpaceSymbol).append(wallLine).append(endSymbol);
@@ -86,7 +89,7 @@ public class DefaultRenderer implements Renderer {
                 if (j == 0) {
                     // Добавляем вертикальную шкалу для y-координаты.
                     if (i % 2 == 0) {
-                        mazeStr.append(String.format("%4s", (i / 2) + 1));
+                        mazeStr.append(String.format(FIRST_FORMATTER, (i / 2) + 1));
                     } else {
                         mazeStr.append(vertSpaceSymbol);
                     }
