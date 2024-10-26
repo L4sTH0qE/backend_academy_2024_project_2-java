@@ -9,6 +9,12 @@ import lombok.Setter;
 /// Класс для описания логики создателя лабиринтов и текущего состояния лабиринта.
 public class CreatorModel {
 
+    // Поле, хранящее информацию о количестве клеток в высоте лабиринта.
+    @Getter private final int height;
+
+    // Поле, хранящее информацию о количестве клеток в ширине лабиринта.
+    @Getter private final int width;
+
     // Поле, хранящее алгоритм для генерации лабиринта.
     @Setter private Generator generator;
 
@@ -20,12 +26,6 @@ public class CreatorModel {
 
     // Поле, хранящее путь в лабиринте.
     @Getter @Setter private List<Coordinate> path;
-
-    // Поле, хранящее информацию о количестве клеток в высоте лабиринта.
-    @Getter private final int height;
-
-    // Поле, хранящее информацию о количестве клеток в ширине лабиринта.
-    @Getter private final int width;
 
     public CreatorModel(int height, int width) {
         this.height = 2 * height - 1;

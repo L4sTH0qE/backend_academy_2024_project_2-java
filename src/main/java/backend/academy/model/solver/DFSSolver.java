@@ -11,6 +11,9 @@ import java.util.List;
 /// Класс для нахождения пути в заданном лабиринте с помощью алгоритма поиска в глубину.
 public class DFSSolver implements Solver {
 
+    // Список направлений для проверки достижимых полей.
+    private final int[][] directions = {{0, -1}, {1, 0}, {0, 1}, {-1, 0}};
+
     // Массив для хранения уже посещенных клеток.
     private boolean[][] visited;
 
@@ -21,9 +24,6 @@ public class DFSSolver implements Solver {
     private Maze maze;
 
     private boolean isEndVisited;
-
-    // Список направлений для проверки достижимых полей.
-    private final int[][] directions = {{0, -1}, {1, 0}, {0, 1}, {-1, 0}};
 
     public List<Coordinate> solve(Maze maze, Coordinate start, Coordinate end) {
 

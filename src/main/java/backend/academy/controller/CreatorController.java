@@ -54,7 +54,7 @@ public record CreatorController(CreatorModel creatorModel, CreatorView creatorVi
 
     /// Метод для получения алгоритма для генерации лабиринта.
     @SuppressWarnings("RegexpSinglelineJava")
-    private void getGenerator() {
+    public void getGenerator() {
         AppView.clear();
         while (true) {
             String choice = creatorView.getGeneratorFromUser(GENERATOR_MAP, AppController.SCANNER);
@@ -70,7 +70,7 @@ public record CreatorController(CreatorModel creatorModel, CreatorView creatorVi
 
     /// Метод для получения алгоритма для нахождения пути в лабиринте.
     @SuppressWarnings("RegexpSinglelineJava")
-    private void getSolver() {
+    public void getSolver() {
         AppView.clear();
         while (true) {
             String choice = creatorView.getSolverFromUser(SOLVER_MAP, AppController.SCANNER);
@@ -85,7 +85,7 @@ public record CreatorController(CreatorModel creatorModel, CreatorView creatorVi
     }
 
     /// Метод для инициализации мап для выбора алгоритмов для создания лабиринтов.
-    public void initialiseData() {
+    private void initialiseData() {
         // Заполняем мапы.
         GENERATOR_MAP.put("1", new PrimGenerator());
         GENERATOR_MAP.put("2", new KruskalGenerator());
@@ -94,7 +94,7 @@ public record CreatorController(CreatorModel creatorModel, CreatorView creatorVi
     }
 
     /// Метод для очистки мап для выбора алгоритмов для создания лабиринтов.
-    public void clearData() {
+    private void clearData() {
         // Чистим мапы.
         GENERATOR_MAP.clear();
         SOLVER_MAP.clear();
@@ -102,7 +102,7 @@ public record CreatorController(CreatorModel creatorModel, CreatorView creatorVi
 
     /// Метод для получения координаты клетки по вертикали.
     @SuppressWarnings("RegexpSinglelineJava")
-    private int getYCoord() {
+    public int getYCoord() {
         while (true) {
             String choice = creatorView.getYCoordFromUser(AppController.SCANNER);
             try {
@@ -119,7 +119,7 @@ public record CreatorController(CreatorModel creatorModel, CreatorView creatorVi
 
     /// Метод для получения координаты клетки по горизонтали.
     @SuppressWarnings("RegexpSinglelineJava")
-    private int getXCoord() {
+    public int getXCoord() {
         while (true) {
             String choice = creatorView.getXCoordFromUser(AppController.SCANNER);
             try {
@@ -135,7 +135,7 @@ public record CreatorController(CreatorModel creatorModel, CreatorView creatorVi
     }
 
     /// Метод для нахождения пути в лабиринте.
-    private void solveMaze() {
+    public void solveMaze() {
         // Получаем координаты стартовой и конечной клеток пути.
         creatorView.getStartCoordsFromUser();
         int startX = getXCoord() - 1;

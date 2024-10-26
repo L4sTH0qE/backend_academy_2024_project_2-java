@@ -17,6 +17,10 @@ public class AppController {
     // Для инициализации SCANNER'а используется объект стандартного потока ввода - System.in
     public static final Scanner SCANNER = new Scanner(System.in, StandardCharsets.UTF_8);
 
+    // Ограничения на размер лабиринта.
+    private static final int MAX_WIDTH = 50;
+    private static final int MAX_HEIGHT = 100;
+
     /// Метод для отображения окна входа в программу.
     @SuppressWarnings("RegexpSinglelineJava")
     public static void start() {
@@ -48,13 +52,13 @@ public class AppController {
 
     /// Метод для получения уровня сложности для новой игры.
     @SuppressWarnings("RegexpSinglelineJava")
-    private static int getWidth() {
+    public static int getWidth() {
         AppView.clear();
         while (true) {
             String choice = AppView.getWidthFromUser(SCANNER);
             try {
                 int width = Integer.parseInt(choice);
-                if (width > 0) {
+                if (width > 0 && width <= MAX_WIDTH) {
                     return width;
                 }
                 AppView.printInvalidInteger();
@@ -66,13 +70,13 @@ public class AppController {
 
     /// Метод для получения категории слова для новой игры.
     @SuppressWarnings("RegexpSinglelineJava")
-    private static int getHeight() {
+    public static int getHeight() {
         AppView.clear();
         while (true) {
             String choice = AppView.getHeightFromUser(SCANNER);
             try {
                 int height = Integer.parseInt(choice);
-                if (height > 0) {
+                if (height > 0 && height <= MAX_HEIGHT) {
                     return height;
                 }
                 AppView.printInvalidInteger();

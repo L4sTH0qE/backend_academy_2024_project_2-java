@@ -62,7 +62,6 @@ public class KruskalGenerator implements Generator {
                 grid[wall.wallY][wall.wallX] = new Cell(wall.wallY, wall.wallX, Cell.Type.PASSAGE);
             }
         }
-
         return new Maze(height, width, grid);
     }
 

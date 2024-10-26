@@ -9,16 +9,12 @@ import backend.academy.model.solver.Solver;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
-import lombok.Getter;
 
 /// Класс CreatorView для отображения процесса создания лабиринтов в консоли.
-@Getter public class CreatorView {
+public class CreatorView {
 
     // Поле для получения лабиринта в строковом представлении.
     private final Renderer renderer = new DefaultRenderer();
-
-    public CreatorView() {
-    }
 
     /// Метод для вывода сообщения обо всех значениях в мапе с их ключами.
     @SuppressWarnings("RegexpSinglelineJava")

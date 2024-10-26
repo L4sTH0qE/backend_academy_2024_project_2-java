@@ -9,11 +9,11 @@ import java.util.List;
 /// Класс для генерации лабиринта с помощью алгоритма Прима.
 public class PrimGenerator implements Generator {
 
-    // Массив для хранения уже посещенных клеток.
-    private boolean[][] visited;
-
     // Генератор хорошего случайного числа.
     private final SecureRandom secureRandom = new SecureRandom();
+
+    // Массив для хранения уже посещенных клеток.
+    private boolean[][] visited;
 
     public Maze generate(int height, int width) {
         // Массив для хранения сетки лабиринта.
