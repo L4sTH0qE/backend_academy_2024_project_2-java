@@ -56,7 +56,8 @@ public class PrimGenerator implements Generator {
 
     /// Метод, который добавляет соседние стены (ребра) в список, если достижимые через них поля еще не были посещены.
     private void addNeighbours(int x, int y, int height, int width, List<Wall> neighbours) {
-        int[][] directions = {{0, -2}, {2, 0}, {0, 2}, {-2, 0}}; // Список направлений для проверки достижимых полей
+        // Список направлений для проверки достижимых полей.
+        int[][] directions = {{0, -2}, {2, 0}, {0, 2}, {-2, 0}};
         for (int[] direction : directions) {
             int nextX = x + direction[0];
             int nextY = y + direction[1];

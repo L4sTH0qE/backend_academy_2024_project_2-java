@@ -106,7 +106,7 @@ public record CreatorController(CreatorModel creatorModel, CreatorView creatorVi
             String choice = creatorView.getYCoordFromUser(AppController.SCANNER);
             try {
                 int yCoord = Integer.parseInt(choice);
-                if (yCoord >= 0 && yCoord < ((creatorModel.height() + 1) / 2)) {
+                if (yCoord > 0 && yCoord <= ((creatorModel.height() + 1) / 2)) {
                     return yCoord;
                 }
                 creatorView.printInvalidYCoord();
@@ -123,7 +123,7 @@ public record CreatorController(CreatorModel creatorModel, CreatorView creatorVi
             String choice = creatorView.getXCoordFromUser(AppController.SCANNER);
             try {
                 int xCoord = Integer.parseInt(choice);
-                if (xCoord >= 0 && xCoord < ((creatorModel.width() + 1) / 2)) {
+                if (xCoord > 0 && xCoord <= ((creatorModel.width() + 1) / 2)) {
                     return xCoord;
                 }
                 creatorView.printInvalidXCoord();
@@ -133,17 +133,17 @@ public record CreatorController(CreatorModel creatorModel, CreatorView creatorVi
         }
     }
 
-    /// Метод для инициализации координат стартовой и конечной точки для нахождения пути в лабиринте.
+    /// Метод для инициализации координат стартовой и конечной клеток пути в лабиринте.
     private Coordinate[] initialiseCoords() {
         // Получаем координаты стартовой и конечной клеток пути.
         creatorView.getStartCoordsFromUser();
-        int startX = getXCoord();
-        int startY = getYCoord();
-        Coordinate start = new Coordinate(startY, startX);
+        int startX = getXCoord() - 1;
+        int startY = getYCoord() - 1;
+        Coordinate start = new Coordinate(startY * 2, startX * 2);
         creatorView.getEndCoordsFromUser();
-        int endX = getXCoord();
-        int endY = getYCoord();
-        Coordinate end = new Coordinate(endY, endX);
+        int endX = getXCoord() - 1;
+        int endY = getYCoord() - 1;
+        Coordinate end = new Coordinate(endY * 2, endX * 2);
 
         return new Coordinate[] {start, end};
     }

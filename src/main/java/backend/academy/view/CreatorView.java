@@ -64,7 +64,7 @@ import java.util.Scanner;
     /// Метод для вывода получения выбора опции во время построения лабиринта от пользователя.
     @SuppressWarnings("RegexpSinglelineJava")
     public String getOptionFromUser(Scanner scanner) {
-        System.out.println("\nCreator options");
+        System.out.println("Creator options");
         System.out.println("1 - Solve maze");
         System.out.println("q - Return to main menu");
         AppView.printInput();
@@ -76,7 +76,7 @@ import java.util.Scanner;
     /// Метод для вывода сообщения об ожидании ввода пользователем координаты клетки по горизонтали.
     @SuppressWarnings("RegexpSinglelineJava")
     public String getXCoordFromUser(Scanner scanner) {
-        System.out.println("\nEnter cell X coordinate (starting from maze left side):");
+        System.out.println("\nEnter cell X coordinate (according to horizontal scale):");
         AppView.printInput();
         String choice = scanner.nextLine();
         System.out.println();
@@ -86,7 +86,7 @@ import java.util.Scanner;
     /// Метод для вывода сообщения об ожидании ввода пользователем координаты клетки по вертикали.
     @SuppressWarnings("RegexpSinglelineJava")
     public String getYCoordFromUser(Scanner scanner) {
-        System.out.println("\nEnter cell Y coordinate (starting from maze top side):");
+        System.out.println("\nEnter cell Y coordinate (according to vertical scale):");
         AppView.printInput();
         String choice = scanner.nextLine();
         System.out.println();
@@ -97,16 +97,12 @@ import java.util.Scanner;
     @SuppressWarnings("RegexpSinglelineJava")
     public void getStartCoordsFromUser() {
         System.out.println("|Coordinates for start cell|");
-        System.out.println("* Coordinates must be for maze cells and not the wall " +
-            "passages to map maze width and height *");
     }
 
     /// Метод для вывода сообщения об ожидании ввода пользователем высоты (длины) лабиринта.
     @SuppressWarnings("RegexpSinglelineJava")
     public void getEndCoordsFromUser() {
         System.out.println("|Coordinates for end cell|");
-        System.out.println("* Coordinates must be for maze cells and not the wall " +
-            "passages to map maze width and height *");
     }
 
     /// Метод для вывода сообщения об ошибке при вводе числа меньше 1.
