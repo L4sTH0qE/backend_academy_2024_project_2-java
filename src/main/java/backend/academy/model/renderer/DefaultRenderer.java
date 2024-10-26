@@ -11,20 +11,21 @@ public class DefaultRenderer implements Renderer {
     /// Метод для возвращения лабиринта без пути в строковом представлении.
     public String render(Maze maze) {
         StringBuilder mazeStr = new StringBuilder();
-        char[] chars = new char[maze.width() + 1];
-        Arrays.fill(chars, '#');
-        mazeStr.append(chars);
+        char[] wallLine = new char[maze.width() + 1];
+        Arrays.fill(wallLine, '⬛');
+        String wallEndLine = "⬛\n⬛";
+        mazeStr.append(wallLine);
 
         for (int i = 0; i < maze.height(); ++i) {
             for (int j = 0; j < maze.width(); ++j) {
                 if (j == 0) {
-                    mazeStr.append("#\n#");
+                    mazeStr.append(wallEndLine);
                 }
                 mazeStr.append(maze.grid()[i][j].type().symbol());
             }
         }
-        mazeStr.append("#\n#");
-        mazeStr.append(chars);
+        mazeStr.append(wallEndLine);
+        mazeStr.append(wallLine);
         return mazeStr.toString();
     }
 

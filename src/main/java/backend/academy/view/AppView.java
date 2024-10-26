@@ -20,10 +20,16 @@ public class AppView {
         System.out.println("Invalid command.\n================");
     }
 
-    /// Метод для вывода сообщения об ошибке.
+    /// Метод для вывода сообщения об ошибке при вводе не числа.
     @SuppressWarnings("RegexpSinglelineJava")
     public static void printInvalidValue() {
-        System.out.println("Integer value must be higher than 2.\n====================================");
+        System.out.println("Input value must be integer.\n====================================");
+    }
+
+    /// Метод для вывода сообщения об ошибке при вводе числа меньше 1.
+    @SuppressWarnings("RegexpSinglelineJava")
+    public static void printInvalidInteger() {
+        System.out.println("Integer value must be higher than 0.\n====================================");
     }
 
     /// Метод для вывода сообщения об ожидании ввода пользователя.
@@ -59,7 +65,7 @@ public class AppView {
     /// Метод для вывода сообщения об ожидании ввода пользователем ширины лабиринта.
     @SuppressWarnings("RegexpSinglelineJava")
     public static String getWidthFromUser(Scanner scanner) {
-        System.out.println("Enter maze width (> 0, default - 10):");
+        System.out.println("Enter maze width (> 0):");
         AppView.printInput();
         String choice = scanner.nextLine();
         System.out.println();
@@ -69,7 +75,7 @@ public class AppView {
     /// Метод для вывода сообщения об ожидании ввода пользователем высоты (длины) лабиринта.
     @SuppressWarnings("RegexpSinglelineJava")
     public static String getHeightFromUser(Scanner scanner) {
-        System.out.println("Enter maze height (> 0, default - 10):");
+        System.out.println("Enter maze height (> 0):");
         AppView.printInput();
         String choice = scanner.nextLine();
         System.out.println();

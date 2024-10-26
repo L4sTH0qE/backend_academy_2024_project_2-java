@@ -56,16 +56,14 @@ public class AppController {
         AppView.clear();
         while (true) {
             String choice = AppView.getWidthFromUser(SCANNER);
-            int defaultWidth = 10;
-            if (choice.isEmpty()) {
-                return defaultWidth;
-            } else {
-                try {
-                    int width = Integer.parseInt(choice);
-                    return width > 0 ? width : defaultWidth;
-                } catch (NumberFormatException e) {
-                    AppView.printInvalidValue();
+            try {
+                int width = Integer.parseInt(choice);
+                if (width > 0) {
+                    return width;
                 }
+                AppView.printInvalidInteger();
+            } catch (NumberFormatException e) {
+                AppView.printInvalidValue();
             }
         }
     }
@@ -76,16 +74,14 @@ public class AppController {
         AppView.clear();
         while (true) {
             String choice = AppView.getHeightFromUser(SCANNER);
-            int defaultHeight = 10;
-            if (choice.isEmpty()) {
-                return defaultHeight;
-            } else {
-                try {
-                    int height = Integer.parseInt(choice);
-                    return height > 0 ? height : defaultHeight;
-                } catch (NumberFormatException e) {
-                    AppView.printInvalidValue();
+            try {
+                int height = Integer.parseInt(choice);
+                if (height > 0) {
+                    return height;
                 }
+                AppView.printInvalidInteger();
+            } catch (NumberFormatException e) {
+                AppView.printInvalidValue();
             }
         }
     }
