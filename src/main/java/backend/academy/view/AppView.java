@@ -23,7 +23,7 @@ public class AppView {
     /// Метод для вывода сообщения об ошибке при вводе не числа.
     @SuppressWarnings("RegexpSinglelineJava")
     public static void printInvalidValue() {
-        System.out.println("Input value must be integer.\n====================================");
+        System.out.println("Input value must be integer.\n============================");
     }
 
     /// Метод для вывода сообщения об ошибке при вводе числа меньше 1.

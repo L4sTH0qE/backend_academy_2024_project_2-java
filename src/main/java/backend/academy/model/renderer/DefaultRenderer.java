@@ -31,6 +31,6 @@ public class DefaultRenderer implements Renderer {
 
     /// Метод для возвращения лабиринта с путем в строковом представлении.
     public String render(Maze maze, List<Coordinate> path) {
-        return "";
+        return "Path";
     }
 }

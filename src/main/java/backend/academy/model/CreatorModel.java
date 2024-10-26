@@ -22,10 +22,10 @@ public class CreatorModel {
     @Getter @Setter private List<Coordinate> path;
 
     // Поле, хранящее информацию о количестве клеток в высоте лабиринта.
-    private final int height;
+    @Getter private final int height;
 
     // Поле, хранящее информацию о количестве клеток в ширине лабиринта.
-    private final int width;
+    @Getter private final int width;
 
     public CreatorModel(int height, int width) {
         this.height = 2 * height - 1;

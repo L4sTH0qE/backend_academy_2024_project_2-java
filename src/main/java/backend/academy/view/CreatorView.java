@@ -10,6 +10,7 @@ import backend.academy.model.solver.Solver;
 import lombok.Getter;
 import java.util.List;
 import java.util.Map;
+import java.util.Scanner;
 
 /// Класс CreatorView для отображения процесса создания лабиринтов в консоли.
 @Getter public class CreatorView {
@@ -58,5 +59,67 @@ import java.util.Map;
         String choice = AppController.SCANNER.nextLine();
         System.out.println();
         return choice;
+    }
+
+    /// Метод для вывода получения выбора опции во время построения лабиринта от пользователя.
+    @SuppressWarnings("RegexpSinglelineJava")
+    public String getOptionFromUser(Scanner scanner) {
+        System.out.println("\nCreator options");
+        System.out.println("1 - Solve maze");
+        System.out.println("q - Return to main menu");
+        AppView.printInput();
+        String choice = scanner.nextLine();
+        System.out.println();
+        return choice;
+    }
+
+    /// Метод для вывода сообщения об ожидании ввода пользователем координаты клетки по горизонтали.
+    @SuppressWarnings("RegexpSinglelineJava")
+    public String getXCoordFromUser(Scanner scanner) {
+        System.out.println("\nEnter cell X coordinate (starting from maze left side):");
+        AppView.printInput();
+        String choice = scanner.nextLine();
+        System.out.println();
+        return choice;
+    }
+
+    /// Метод для вывода сообщения об ожидании ввода пользователем координаты клетки по вертикали.
+    @SuppressWarnings("RegexpSinglelineJava")
+    public String getYCoordFromUser(Scanner scanner) {
+        System.out.println("\nEnter cell Y coordinate (starting from maze top side):");
+        AppView.printInput();
+        String choice = scanner.nextLine();
+        System.out.println();
+        return choice;
+    }
+
+    /// Метод для вывода сообщения об ожидании ввода пользователем ширины лабиринта.
+    @SuppressWarnings("RegexpSinglelineJava")
+    public void getStartCoordsFromUser() {
+        System.out.println("|Coordinates for start cell|");
+        System.out.println("* Coordinates must be for maze cells and not the wall " +
+            "passages to map maze width and height *");
+    }
+
+    /// Метод для вывода сообщения об ожидании ввода пользователем высоты (длины) лабиринта.
+    @SuppressWarnings("RegexpSinglelineJava")
+    public void getEndCoordsFromUser() {
+        System.out.println("|Coordinates for end cell|");
+        System.out.println("* Coordinates must be for maze cells and not the wall " +
+            "passages to map maze width and height *");
+    }
+
+    /// Метод для вывода сообщения об ошибке при вводе числа меньше 1.
+    @SuppressWarnings("RegexpSinglelineJava")
+    public void printInvalidXCoord() {
+        System.out.println("Integer value must be between 0 and maze width." +
+            "\n===============================================");
+    }
+
+    /// Метод для вывода сообщения об ошибке при вводе числа меньше 1.
+    @SuppressWarnings("RegexpSinglelineJava")
+    public void printInvalidYCoord() {
+        System.out.println("Integer value must be between 0 and maze height." +
+            "\n================================================");
     }
 }
