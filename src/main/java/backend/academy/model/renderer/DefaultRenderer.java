@@ -59,7 +59,9 @@ public class DefaultRenderer implements Renderer {
         }
 
         char wallSymbol = '⬛';
-        char pathSymbol = '❌';
+        String pathSymbol = "\uD83D\uDFE8";
+        String startSymbol = "\uD83D\uDFE9";
+        String finishSymbol = "\uD83D\uDFE5";
         char endSymbol = '\n';
         String vertSpaceSymbol = String.format(FIRST_FORMATTER, ' ');
 
@@ -83,6 +85,8 @@ public class DefaultRenderer implements Renderer {
         for (Coordinate pathCell: path) {
             isInPath[pathCell.row()][pathCell.col()] = true;
         }
+        Coordinate start = path.getFirst();
+        Coordinate end = path.getLast();
 
         for (int i = 0; i < maze.height(); ++i) {
             for (int j = 0; j < maze.width(); ++j) {
@@ -96,7 +100,13 @@ public class DefaultRenderer implements Renderer {
                     mazeStr.append(wallSymbol);
                 }
                 if (isInPath[i][j]) {
-                    mazeStr.append(pathSymbol);
+                    if (i == start.row() && j == start.col()) {
+                        mazeStr.append(startSymbol);
+                    } else if (i == end.row() && j == end.col()) {
+                        mazeStr.append(finishSymbol);
+                    } else {
+                        mazeStr.append(pathSymbol);
+                    }
                 } else {
                     mazeStr.append(maze.grid()[i][j].type().symbol());
                 }
