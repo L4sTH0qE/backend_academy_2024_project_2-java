@@ -5,11 +5,10 @@ import backend.academy.model.Coordinate;
 import backend.academy.model.Maze;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 /// Класс для нахождения пути в заданном лабиринте с помощью алгоритма поиска в ширину.
-public class BFSSolver implements Solver {
+public class BFSSolver extends Solver {
 
     public List<Coordinate> solve(Maze maze, Coordinate start, Coordinate end) {
 
@@ -54,31 +53,7 @@ public class BFSSolver implements Solver {
             }
         }
 
-        // Возвращаем null, если конечная клетка не достижима из стартовой клетки.
-        if (prev[endId] == -1) {
-            return null;
-        }
-
-        // Список клеток, составляющих искомый путь.
-        List<Coordinate> path = new ArrayList<>();
-
-        // Собираем путь по предкам.
-        path.add(new Coordinate(endId / maze.width(), endId % maze.width()));
-        int coordsCounter = maze.height() * maze.width() - 1;
-        while (endId != prev[endId] && coordsCounter > 0) {
-            path.add(new Coordinate(prev[endId] / maze.width(), prev[endId] % maze.width()));
-            endId = prev[endId];
-            --coordsCounter;
-        }
-
-        // Попали в какой-то цикл (невозможно, но пусть проверка будет).
-        if (endId != prev[endId]) {
-            return null;
-        }
-
-        // Переворачиваем список.
-        Collections.reverse(path);
-        return path;
+        return getPath(maze, prev, endId);
     }
 
     /// Метод для проверки нахождения координат внутри лабиринта.

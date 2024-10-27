@@ -11,26 +11,19 @@ public class DefaultRenderer implements Renderer {
     private static final String FIRST_FORMATTER = "%4s";
     private static final String SECOND_FORMATTER = "%5s";
 
+    private static final char WALL_SYMBOL = '⬛';
+    private static final char END_SYMBOL = '\n';
+
+    private static final String VERT_SPACE_SYMBOL = String.format(FIRST_FORMATTER, ' ');
+
+    private StringBuilder mazeStr;
+
+    private char[] wallLine;
+
     /// Метод для возвращения лабиринта без пути в строковом представлении.
     public String render(Maze maze) {
-        char wallSymbol = '⬛';
-        char endSymbol = '\n';
-        String vertSpaceSymbol = String.format(FIRST_FORMATTER, ' ');
 
-        StringBuilder mazeStr = new StringBuilder();
-        char[] wallLine = new char[maze.width() + 2];
-        Arrays.fill(wallLine, wallSymbol);
-
-        mazeStr.append(vertSpaceSymbol);
-        // Добавляем горизонтальную шкалу для x-координаты.
-        for (int i = 0; i < ((maze.width() + 1) / 2); ++i) {
-            if (i % 2 == 0) {
-                mazeStr.append(String.format(FIRST_FORMATTER, i + 1));
-            } else {
-                mazeStr.append(String.format(SECOND_FORMATTER, i + 1));
-            }
-        }
-        mazeStr.append(endSymbol).append(vertSpaceSymbol).append(wallLine).append(endSymbol);
+        initialRender(maze);
 
         for (int i = 0; i < maze.height(); ++i) {
             for (int j = 0; j < maze.width(); ++j) {
@@ -39,15 +32,15 @@ public class DefaultRenderer implements Renderer {
                     if (i % 2 == 0) {
                         mazeStr.append(String.format(FIRST_FORMATTER, (i / 2) + 1));
                     } else {
-                        mazeStr.append(vertSpaceSymbol);
+                        mazeStr.append(VERT_SPACE_SYMBOL);
                     }
-                    mazeStr.append(wallSymbol);
+                    mazeStr.append(WALL_SYMBOL);
                 }
                 mazeStr.append(maze.grid()[i][j].type().symbol());
             }
-            mazeStr.append(wallSymbol).append(endSymbol);
+            mazeStr.append(WALL_SYMBOL).append(END_SYMBOL);
         }
-        mazeStr.append(vertSpaceSymbol).append(wallLine).append(endSymbol);
+        mazeStr.append(VERT_SPACE_SYMBOL).append(wallLine).append(END_SYMBOL);
         return mazeStr.toString();
     }
 
@@ -57,28 +50,10 @@ public class DefaultRenderer implements Renderer {
         if (path == null) {
             return render(maze);
         }
-
-        char wallSymbol = '⬛';
+        initialRender(maze);
         String pathSymbol = "\uD83D\uDFE8";
         String startSymbol = "\uD83D\uDFE9";
         String finishSymbol = "\uD83D\uDFE5";
-        char endSymbol = '\n';
-        String vertSpaceSymbol = String.format(FIRST_FORMATTER, ' ');
-
-        StringBuilder mazeStr = new StringBuilder();
-        char[] wallLine = new char[maze.width() + 2];
-        Arrays.fill(wallLine, wallSymbol);
-
-        mazeStr.append(vertSpaceSymbol);
-        // Добавляем горизонтальную шкалу для x-координаты.
-        for (int i = 0; i < ((maze.width() + 1) / 2); ++i) {
-            if (i % 2 == 0) {
-                mazeStr.append(String.format(FIRST_FORMATTER, i + 1));
-            } else {
-                mazeStr.append(String.format(SECOND_FORMATTER, i + 1));
-            }
-        }
-        mazeStr.append(endSymbol).append(vertSpaceSymbol).append(wallLine).append(endSymbol);
 
         // Создаем массив булевых значений и ставим true для клеток, принадлежащих пути.
         boolean[][] isInPath = new boolean[maze.height()][maze.width()];
@@ -95,9 +70,9 @@ public class DefaultRenderer implements Renderer {
                     if (i % 2 == 0) {
                         mazeStr.append(String.format(FIRST_FORMATTER, (i / 2) + 1));
                     } else {
-                        mazeStr.append(vertSpaceSymbol);
+                        mazeStr.append(VERT_SPACE_SYMBOL);
                     }
-                    mazeStr.append(wallSymbol);
+                    mazeStr.append(WALL_SYMBOL);
                 }
                 if (isInPath[i][j]) {
                     if (i == start.row() && j == start.col()) {
@@ -111,9 +86,26 @@ public class DefaultRenderer implements Renderer {
                     mazeStr.append(maze.grid()[i][j].type().symbol());
                 }
             }
-            mazeStr.append(wallSymbol).append(endSymbol);
+            mazeStr.append(WALL_SYMBOL).append(END_SYMBOL);
         }
-        mazeStr.append(vertSpaceSymbol).append(wallLine).append(endSymbol);
+        mazeStr.append(VERT_SPACE_SYMBOL).append(wallLine).append(END_SYMBOL);
         return mazeStr.toString();
+    }
+
+    private void initialRender(Maze maze) {
+        mazeStr = new StringBuilder();
+        wallLine = new char[maze.width() + 2];
+        Arrays.fill(wallLine, WALL_SYMBOL);
+
+        mazeStr.append(VERT_SPACE_SYMBOL);
+        // Добавляем горизонтальную шкалу для x-координаты.
+        for (int i = 0; i < ((maze.width() + 1) / 2); ++i) {
+            if (i % 2 == 0) {
+                mazeStr.append(String.format(FIRST_FORMATTER, i + 1));
+            } else {
+                mazeStr.append(String.format(SECOND_FORMATTER, i + 1));
+            }
+        }
+        mazeStr.append(END_SYMBOL).append(VERT_SPACE_SYMBOL).append(wallLine).append(END_SYMBOL);
     }
 }
