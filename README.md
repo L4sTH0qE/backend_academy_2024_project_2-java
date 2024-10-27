@@ -1,4 +1,4 @@
-![Example](https://raw.githubusercontent.com/central-university-dev/backend_academy_2024_project_2-java-L4sTH0qE/develop/pictures/maze_creator.png)
+![Example](https://github.com/central-university-dev/backend_academy_2024_project_2-java-L4sTH0qE/raw/master/pictures/maze_creator.png)
 
 # Домашнее задание 2. Maze creator
 
@@ -9,7 +9,7 @@
 
 ### Главное меню
 
-![menu](https://raw.githubusercontent.com/central-university-dev/backend_academy_2024_project_2-java-L4sTH0qE/develop/pictures/menu.png)
+![menu](https://github.com/central-university-dev/backend_academy_2024_project_2-java-L4sTH0qE/raw/master/pictures/menu.png)
 
 При запуске программы в консоль выводится Главное меню. В нем предлагается ввести команду из предложенного списка:
 
@@ -20,12 +20,12 @@
 
 ### Настройка параметров генерации
 
-![generation options](https://raw.githubusercontent.com/central-university-dev/backend_academy_2024_project_2-java-L4sTH0qE/develop/pictures/size.png)
+![generation options](https://github.com/central-university-dev/backend_academy_2024_project_2-java-L4sTH0qE/raw/master/pictures/size.png)
 
 При вводе **1** в Главном меню программы пользователю предлагается ввести **ширину** (целое число от 1 до 50) и **высоту** (от 1 до 100) генерируемого лабиринта.
 В случае некорректного ввода размера сторон лабиринта пользователю будет предлагаться выполнить повторный ввод до тех пор, пока ширина и высота не будут соответствовать указанным требованиям.
 
-![generator](https://raw.githubusercontent.com/central-university-dev/backend_academy_2024_project_2-java-L4sTH0qE/develop/pictures/generator.png)
+![generator](https://github.com/central-university-dev/backend_academy_2024_project_2-java-L4sTH0qE/raw/master/pictures/generator.png)
 
 При успешном вводе размеров сторон лабиринта пользователю предлагается выбрать алгоритм для генерации лабиринта из предложенного списка:
 
@@ -40,13 +40,13 @@
 
 После этого в консоль будет выведен сгенерированный лабиринт по заданным параметрам вместе с размерной сеткой.
 
-![generated maze](https://raw.githubusercontent.com/central-university-dev/backend_academy_2024_project_2-java-L4sTH0qE/develop/pictures/generator_result.png)
+![generated maze](https://github.com/central-university-dev/backend_academy_2024_project_2-java-L4sTH0qE/raw/master/pictures/generator_result.png)
 
 Легенда: ⬛ - Стена, ⬜ - Проход.
 
 ### Меню опций сгенерированного лабиринта
 
-![options](https://raw.githubusercontent.com/central-university-dev/backend_academy_2024_project_2-java-L4sTH0qE/develop/pictures/options.png)
+![options](https://github.com/central-university-dev/backend_academy_2024_project_2-java-L4sTH0qE/raw/master/pictures/options.png)
 
 После вывода сгенерированного лабиринта в консоль также будет выведено Меню опций. Пользователю предлагается ввести команду из предложенного списка:
 
@@ -57,14 +57,14 @@
 
 ### Ввод координат стартовой и конечных точек искомого пути
 
-![coordinates](https://raw.githubusercontent.com/central-university-dev/backend_academy_2024_project_2-java-L4sTH0qE/develop/pictures/coords.png)
+![coordinates](https://github.com/central-university-dev/backend_academy_2024_project_2-java-L4sTH0qE/raw/master/pictures/coords.png)
 
 При вводе **1** в Меню опций программы пользователю предлагается по очереди ввести координаты стартовой и конечной точек пути в данном лабиринте. 
 Для каждой из них пользователь должен по очереди ввести координату по оси X ("столбец" лабиринта) и координату по оси Y ("строка" лабиринта) в соответствии со **шкалами размерной сетки** лабиринта (см. изображение лабиринта выше).
 
 В случае некорректного ввода какой-либо координаты любой точки, пользователю будет предложено ввести ее повторно.
 
-![solver](https://raw.githubusercontent.com/central-university-dev/backend_academy_2024_project_2-java-L4sTH0qE/develop/pictures/solver.png)
+![solver](https://github.com/central-university-dev/backend_academy_2024_project_2-java-L4sTH0qE/raw/master/pictures/solver.png)
 
 При успешном вводе координат стартовой и конечной точек пути пользователю предлагается выбрать алгоритм для нахождения пути в лабиринте из предложенного списка:
 
@@ -79,7 +79,7 @@
 
 После этого в консоль будет выведен лабиринт с найденным путем между заданными точками. Если между заданными точками не был найден путь, то программа выведет в консоль лабиринт без указания пути.
 
-![solved maze](https://raw.githubusercontent.com/central-university-dev/backend_academy_2024_project_2-java-L4sTH0qE/develop/pictures/solver_result.png)
+![solved maze](https://github.com/central-university-dev/backend_academy_2024_project_2-java-L4sTH0qE/raw/master/pictures/solver_result.png)
 
 Легенда: ⬛ - Стена, ⬜ - Проход, 🟩 - Стартовая клетка, 🟥 - Конечная клетка, 🟨 - Клетка пути.
 
@@ -105,7 +105,7 @@
 
 Данный алгоритм позволяет сгенерировать лабиринт без циклов, в котором из каждой клетки есть единственный путь во все остальные.
 
-![Prim](https://raw.githubusercontent.com/central-university-dev/backend_academy_2024_project_2-java-L4sTH0qE/develop/pictures/Prim_10_5.png)
+![Prim](https://github.com/central-university-dev/backend_academy_2024_project_2-java-L4sTH0qE/raw/master/pictures/Prim_10_5.png)
 
 ### Итеративный рандомизированный алгоритм Краскала
 
@@ -123,7 +123,7 @@
 
 Данный алгоритм позволяет сгенерировать лабиринт без циклов, в котором из каждой клетки есть единственный путь во все остальные.
 
-![Kruskal](https://raw.githubusercontent.com/central-university-dev/backend_academy_2024_project_2-java-L4sTH0qE/develop/pictures/Kruskal_10_5.png)
+![Kruskal](https://github.com/central-university-dev/backend_academy_2024_project_2-java-L4sTH0qE/raw/master/pictures/Kruskal_10_5.png)
 
 ## Алгоритмы нахождения пути
 
@@ -143,7 +143,7 @@
    4. *Дополнительно можем проверить, что у конечной клетки указан предок, чтобы досрочно прервать цикл.
 3. Восстанавливаем путь, начиная с конечной клетки (если у конечной клетки не указан предок, значит путь из стартовой вершины до конечной отсутствует).
 
-![BFS](https://raw.githubusercontent.com/central-university-dev/backend_academy_2024_project_2-java-L4sTH0qE/develop/pictures/BFS_15_20.png)
+![BFS](https://github.com/central-university-dev/backend_academy_2024_project_2-java-L4sTH0qE/raw/master/pictures/BFS_15_20.png)
 
 ### Поиск в глубину
 
@@ -163,4 +163,4 @@
       1. Отмечаем для нее в качестве предка текущую клетку-вершину.
       2. Вызываем dfs() для этой соседней клетки.
     
-![DFS](https://raw.githubusercontent.com/central-university-dev/backend_academy_2024_project_2-java-L4sTH0qE/develop/pictures/DFS_20_15.png)
+![DFS](https://github.com/central-university-dev/backend_academy_2024_project_2-java-L4sTH0qE/raw/master/pictures/DFS_20_15.png)
