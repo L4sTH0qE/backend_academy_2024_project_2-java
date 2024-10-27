@@ -31,7 +31,10 @@ public record CreatorController(CreatorModel creatorModel, CreatorView creatorVi
     /// Основной метод по созданию лабиринта.
     public void start() {
         initialiseData();
-        getGenerator();
+        while (creatorModel.generator() == null) {
+            AppView.clear();
+            getGenerator(creatorView.getGeneratorFromUser(GENERATOR_MAP, AppController.SCANNER));
+        }
         AppView.clear();
         creatorModel.generate();
         creatorView.printMaze(creatorModel.maze()); // Выводим сгенерированный лабиринт.
@@ -54,38 +57,28 @@ public record CreatorController(CreatorModel creatorModel, CreatorView creatorVi
 
     /// Метод для получения алгоритма для генерации лабиринта.
     @SuppressWarnings("RegexpSinglelineJava")
-    public void getGenerator() {
+    public void getGenerator(String choice) {
         AppView.clear();
-        while (true) {
-            String choice = creatorView.getGeneratorFromUser(GENERATOR_MAP, AppController.SCANNER);
-            Generator generator = GENERATOR_MAP.getOrDefault(choice, null);
-            if (generator == null) {
-                AppView.printInvalidCommand();
-            } else {
-                creatorModel.generator(generator);
-                return;
-            }
+        Generator generator = GENERATOR_MAP.getOrDefault(choice, null);
+        creatorModel.generator(generator);
+        if (generator == null) {
+            AppView.printInvalidCommand();
         }
     }
 
     /// Метод для получения алгоритма для нахождения пути в лабиринте.
     @SuppressWarnings("RegexpSinglelineJava")
-    public void getSolver() {
+    public void getSolver(String choice) {
         AppView.clear();
-        while (true) {
-            String choice = creatorView.getSolverFromUser(SOLVER_MAP, AppController.SCANNER);
-            Solver solver = SOLVER_MAP.getOrDefault(choice, null);
-            if (solver == null) {
-                AppView.printInvalidCommand();
-            } else {
-                creatorModel.solver(solver);
-                return;
-            }
+        Solver solver = SOLVER_MAP.getOrDefault(choice, null);
+        creatorModel.solver(solver);
+        if (solver == null) {
+            AppView.printInvalidCommand();
         }
     }
 
     /// Метод для инициализации мап для выбора алгоритмов для создания лабиринтов.
-    private void initialiseData() {
+    public void initialiseData() {
         // Заполняем мапы.
         GENERATOR_MAP.put("1", new PrimGenerator());
         GENERATOR_MAP.put("2", new KruskalGenerator());
@@ -94,7 +87,7 @@ public record CreatorController(CreatorModel creatorModel, CreatorView creatorVi
     }
 
     /// Метод для очистки мап для выбора алгоритмов для создания лабиринтов.
-    private void clearData() {
+    public void clearData() {
         // Чистим мапы.
         GENERATOR_MAP.clear();
         SOLVER_MAP.clear();
@@ -107,7 +100,7 @@ public record CreatorController(CreatorModel creatorModel, CreatorView creatorVi
             String choice = creatorView.getYCoordFromUser(AppController.SCANNER);
             try {
                 int yCoord = Integer.parseInt(choice);
-                if (yCoord > 0 && yCoord <= ((creatorModel.height() + 1) / 2)) {
+                if (checkYCoord(yCoord)) {
                     return yCoord;
                 }
                 creatorView.printInvalidYCoord();
@@ -124,7 +117,7 @@ public record CreatorController(CreatorModel creatorModel, CreatorView creatorVi
             String choice = creatorView.getXCoordFromUser(AppController.SCANNER);
             try {
                 int xCoord = Integer.parseInt(choice);
-                if (xCoord > 0 && xCoord <= ((creatorModel.width() + 1) / 2)) {
+                if (checkXCoord(xCoord)) {
                     return xCoord;
                 }
                 creatorView.printInvalidXCoord();
@@ -132,6 +125,16 @@ public record CreatorController(CreatorModel creatorModel, CreatorView creatorVi
                 AppView.printInvalidValue();
             }
         }
+    }
+
+    /// Метод для проверки корректности введенной X-координаты.
+    public boolean checkXCoord(int coord) {
+        return coord > 0 && coord <= (creatorModel.width() + 1) / 2;
+    }
+
+    /// Метод для проверки корректности введенной Y-координаты.
+    public boolean checkYCoord(int coord) {
+        return coord > 0 && coord <= (creatorModel.height() + 1) / 2;
     }
 
     /// Метод для нахождения пути в лабиринте.
@@ -145,7 +148,10 @@ public record CreatorController(CreatorModel creatorModel, CreatorView creatorVi
         int endX = getXCoord() - 1;
         int endY = getYCoord() - 1;
         Coordinate end = new Coordinate(endY * 2, endX * 2);
-        getSolver();
+        while (creatorModel.solver() == null) {
+            AppView.clear();
+            getSolver(creatorView.getSolverFromUser(SOLVER_MAP, AppController.SCANNER));
+        }
         AppView.clear();
         creatorModel.solve(start, end);
         creatorView.printMaze(creatorModel.maze(), creatorModel.path()); // Выводим лабиринт с получившимся путем.

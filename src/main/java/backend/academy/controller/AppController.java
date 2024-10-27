@@ -58,7 +58,7 @@ public class AppController {
             String choice = AppView.getWidthFromUser(SCANNER);
             try {
                 int width = Integer.parseInt(choice);
-                if (width > 0 && width <= MAX_WIDTH) {
+                if (checkSize(width, MAX_WIDTH)) {
                     return width;
                 }
                 AppView.printInvalidInteger();
@@ -76,7 +76,7 @@ public class AppController {
             String choice = AppView.getHeightFromUser(SCANNER);
             try {
                 int height = Integer.parseInt(choice);
-                if (height > 0 && height <= MAX_HEIGHT) {
+                if (checkSize(height, MAX_HEIGHT)) {
                     return height;
                 }
                 AppView.printInvalidInteger();
@@ -84,6 +84,11 @@ public class AppController {
                 AppView.printInvalidValue();
             }
         }
+    }
+
+    /// Метод для проверки корректности введенного размера стороны лабиринта.
+    public boolean checkSize(int side, int upperBound) {
+        return side > 0 && side <= upperBound;
     }
 
     /// Метод для инициализации игровой сессии.
